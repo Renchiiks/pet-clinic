@@ -34,14 +34,6 @@
             <groupId>com.microsoft.azure</groupId>
             <artifactId>azure-spring-boot-starter</artifactId>
         </dependency>
-<!--        <exclusions>-->
-<!--            <exclusion>-->
-<!--                <groupId>org.junit.vintage</groupId>-->
-<!--                <artifactId>junit-vintage-engine</artifactId>-->
-<!--            </exclusion>-->
-<!--        </exclusions>-->
-
-
     </dependencies>
 
     <dependencyManagement>
