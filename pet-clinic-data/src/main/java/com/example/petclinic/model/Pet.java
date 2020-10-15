@@ -1,11 +1,20 @@
 package com.example.petclinic.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Pet extends BaseEntity {
+    private String name;
     private Owner owner;
     private PetType petType;
-    private Date birthDate;
+    private LocalDate birthDate;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Owner getOwner() {
         return owner;
@@ -23,11 +32,11 @@ public class Pet extends BaseEntity {
         this.petType = petType;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }
