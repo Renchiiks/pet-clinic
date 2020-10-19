@@ -1,11 +1,24 @@
 package com.example.petclinic.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-
+@Entity
 public class Pet extends BaseEntity {
+    @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
     private Owner owner;
+
+    @ManyToOne
+    @JoinColumn(name = "pet_type_id")
     private PetType petType;
+
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
     public String getName() {
