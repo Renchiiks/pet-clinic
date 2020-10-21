@@ -55,7 +55,8 @@ class SpecialityServiceMapTest {
 
     @Test
     void saveWithExistingId() {
-        Speciality speciality2 = Speciality.builder().id(2L).build();
+        Long id = 2L;
+        Speciality speciality2 = Speciality.builder().id(id).build();
         Speciality savedSpeciality = specialityServiceMap.save(speciality2);
 
         assertEquals(id, savedSpeciality.getId());

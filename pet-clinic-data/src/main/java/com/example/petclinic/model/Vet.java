@@ -10,7 +10,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
@@ -19,4 +19,9 @@ public class Vet extends Person {
             inverseJoinColumns = @JoinColumn(name = "speciality_id"))
     private Set<Speciality> specialities = new HashSet<>();
 
+    @Builder
+    public Vet(Long id, String firstName, String lastName, Set<Speciality> specialities) {
+        super(id, firstName, lastName);
+        this.specialities = specialities;
+    }
 }
