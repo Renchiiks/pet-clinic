@@ -53,7 +53,7 @@ class OwnerServiceMapTest {
     }
 
     @Test
-    void saveExistingOwner() {
+    void saveExistingOwnerId() {
         Long id = 2L;
         Owner owner2 = Owner.builder().id(id).build();
 
