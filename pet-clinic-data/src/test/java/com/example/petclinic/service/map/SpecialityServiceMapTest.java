@@ -4,7 +4,6 @@ import com.example.petclinic.model.Speciality;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,9 +24,9 @@ class SpecialityServiceMapTest {
 
     @Test
     void findAll() {
-        Set<Speciality> specialities = new HashSet<>();
+        Set<Speciality> specialities = specialityServiceMap.findAll();
 
-        assertEquals(1, specialityServiceMap.findAll().size());
+        assertEquals(1, specialities.size());
     }
 
     @Test

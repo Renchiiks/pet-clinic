@@ -25,7 +25,7 @@ class VetServiceMapTest {
     void findAll() {
         Set<Vet> vetSet = vetServiceMap.findAll();
 
-        assertEquals(1, vetServiceMap.findAll().size());
+        assertEquals(1, vetSet.size());
     }
 
     @Test
