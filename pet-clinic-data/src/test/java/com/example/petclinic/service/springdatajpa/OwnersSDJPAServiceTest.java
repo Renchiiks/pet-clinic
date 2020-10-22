@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class OwnersSDjpaServiceTest {
+class OwnersSDJPAServiceTest {
 
     public static final String LAST_NAME = "Smith";
     @Mock
@@ -33,7 +33,7 @@ class OwnersSDjpaServiceTest {
     PetTypeRepository petTypeRepository;
 
     @InjectMocks
-    OwnersSDjpaService service;
+    OwnersSDJPAService service;
 
     Owner returnOwner;
 
