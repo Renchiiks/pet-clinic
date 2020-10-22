@@ -11,11 +11,11 @@ import java.util.Set;
 
 @Service
 @Profile("spring_data_jpa")
-public class SpecialitySDjpaService implements SpecialityService {
+public class SpecialitySDJPAService implements SpecialityService {
 
     private final SpecialityRepository specialityRepository;
 
-    public SpecialitySDjpaService(SpecialityRepository specialityRepository) {
+    public SpecialitySDJPAService(SpecialityRepository specialityRepository) {
         this.specialityRepository = specialityRepository;
     }
 
@@ -45,4 +45,5 @@ public class SpecialitySDjpaService implements SpecialityService {
     public void deleteById(Long aLong) {
         specialityRepository.deleteById(aLong);
     }
+
 }

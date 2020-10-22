@@ -10,7 +10,6 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name = "pet_types")
 public class PetType extends BaseEntity {

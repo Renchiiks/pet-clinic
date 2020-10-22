@@ -28,11 +28,11 @@ class PetTypeSDJPAServiceTest {
     @InjectMocks
     PetTypeSDJPAService service;
 
-    PetType retrunPetType;
+    PetType returnPetType;
 
     @BeforeEach
     void setUp() {
-        retrunPetType = PetType.builder().id(1L).build();
+        returnPetType = PetType.builder().id(1L).build();
     }
 
     @Test
@@ -53,7 +53,7 @@ class PetTypeSDJPAServiceTest {
     @Test
     void findById() {
 
-        when(repository.findById(anyLong())).thenReturn(Optional.of(retrunPetType));
+        when(repository.findById(anyLong())).thenReturn(Optional.of(returnPetType));
 
         PetType petType = service.findById(1L);
 
@@ -73,7 +73,7 @@ class PetTypeSDJPAServiceTest {
     void save() {
         PetType petType = PetType.builder().id(1L).build();
 
-        when(repository.save(any())).thenReturn(retrunPetType);
+        when(repository.save(any())).thenReturn(returnPetType);
 
         PetType savedType = service.save(petType);
 
@@ -84,7 +84,7 @@ class PetTypeSDJPAServiceTest {
 
     @Test
     void delete() {
-        service.delete(retrunPetType);
+        service.delete(returnPetType);
 
         verify(repository).delete(any());
     }
