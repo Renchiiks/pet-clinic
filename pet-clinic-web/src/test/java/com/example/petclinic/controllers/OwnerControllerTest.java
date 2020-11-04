@@ -17,6 +17,7 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -44,21 +45,11 @@ class OwnerControllerTest {
     void listOwners() throws Exception {
         when(service.findAll()).thenReturn(owners);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/owners"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/owners/ownersList"))
                 .andExpect(status().is(200))
-                .andExpect(view().name("owners/index"))
+                .andExpect(view().name("owners/ownersList"))
                 .andExpect(model().attribute("owners", hasSize(2)));
 
-    }
-
-    @Test
-    void listOwnersFind() throws Exception {
-        when(service.findAll()).thenReturn(owners);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/find"))
-                .andExpect(status().is(200))
-                .andExpect(view().name("owners/index"))
-                .andExpect(model().attribute("owners", hasSize(2)));
     }
 
     @Test
@@ -69,5 +60,36 @@ class OwnerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("owners/ownerDetails"))
                 .andExpect(model().attribute("owner", hasProperty("id", is(1L))));
+    }
+
+    @Test
+    void ownersForm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/owners/find"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/findOwners"))
+                .andExpect(model().attributeExists("owner"));
+
+    }
+
+    @Test
+    void processFindFormReturnMany() throws Exception {
+        when(service.findByLastNameLike(anyString())).thenReturn(owners);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/owners"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/owners/ownersList"))
+                .andExpect(model().attribute("selections", owners));
+    }
+
+    @Test
+    void processFindFormReturnOne() throws Exception {
+        Set<Owner> owners = new HashSet<>();
+        owners.add(Owner.builder().id(1L).build());
+
+        when(service.findByLastNameLike(anyString())).thenReturn(owners);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/owners"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/owners/1"));
     }
 }
