@@ -8,6 +8,7 @@ import com.example.petclinic.service.PetService;
 import com.example.petclinic.service.PetTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class PetController {
         this.petService = petService;
     }
 
-    @ModelAttribute("type")
+    @ModelAttribute("petTypes")
     public Collection<PetType> petTypes() {
         return petTypeService.findAll();
     }
@@ -51,38 +52,39 @@ public class PetController {
         // Pet pet = Pet.builder().build();
         Pet pet = new Pet();
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         model.addAttribute("pet", pet);
         return "pets/createOrUpdatePetForm";
     }
 
     @PostMapping("/pets/new")
-    public String processNewPetForm(Owner owner, @Valid Pet pet, BindingResult result, Model model) {
+    public String processNewPetForm(Owner owner, @Valid Pet pet, BindingResult result, ModelMap model) {
 
         if (hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {
             result.rejectValue("name", "duplicate", "already exists");
         }
 
         owner.getPets().add(pet);
+
         if (result.hasErrors()) {
-            model.addAttribute("pet", pet);
+            model.put("pet", pet);
             return "pets/createOrUpdatePetForm";
         } else {
             petService.save(pet);
-            return "redirect:owners/" + owner.getId();
+            return "redirect:/owners/" + owner.getId();
         }
     }
 
     @GetMapping("/pets/{petId}/edit")
-    public String editPetForm(Model model, @PathVariable Long petId) {
+    public String editPetForm(@PathVariable Long petId, Model model) {
         Pet pet = petService.findById(petId);
         model.addAttribute("pet", pet);
         return "pets/createOrUpdatePetForm";
     }
 
     @PostMapping("/pets/{petId}/edit")
-    public String processEditPetForm(Owner owner, @PathVariable Long petId, BindingResult result, Model model) {
+    public String processEditPetForm(Owner owner, @Valid Pet pet, BindingResult result, Model model) {
 
-        Pet pet = petService.findById(petId);
         owner.getPets().add(pet);
         if (result.hasErrors()) {
             model.addAttribute("pet", pet);
