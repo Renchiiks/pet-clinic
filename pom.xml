@@ -109,8 +109,8 @@
         </plugins>
     </build>
 
-    <scm>
-        <developerConnection>scm:git:https://github.com/Renchiiks/pet-clinic.git</developerConnection>
-    </scm>
+<!--    <scm>-->
+<!--        <developerConnection>scm:git:https://github.com/Renchiiks/pet-clinic.git</developerConnection>-->
+<!--    </scm>-->
 
 </project>
