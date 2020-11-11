@@ -40,7 +40,7 @@ version: 2.1
 #    - run: mvn integration-test
 
 orbs:
-  maven: circleci/maven@0.0.12
+  maven: circleci/maven@1.0.2
 
 workflows:
   maven_test:
