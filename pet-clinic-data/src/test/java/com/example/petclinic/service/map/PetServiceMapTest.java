@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PetServiceMapTest {
 
@@ -45,6 +44,29 @@ class PetServiceMapTest {
     }
 
     @Test
+    void deleteWithWrongId() {
+        Pet pet = Pet.builder().id(5L).build();
+        petServiceMap.delete(pet);
+
+        assertEquals(1, petServiceMap.findAll().size());
+    }
+
+    @Test
+    void deleteWithNullId() {
+        Pet pet = Pet.builder().build();
+        petServiceMap.delete(pet);
+
+        assertEquals(1, petServiceMap.findAll().size());
+    }
+
+    @Test
+    void deleteNull() {
+        petServiceMap.delete(null);
+
+        assertEquals(1, petServiceMap.findAll().size());
+    }
+
+    @Test
     void savePetWithNoId() {
         Pet pet = Pet.builder().build();
         petServiceMap.save(pet);
@@ -64,9 +86,33 @@ class PetServiceMapTest {
     }
 
     @Test
-    void findById() {
+    void saveDuplicate() {
+        Long id = 1L;
+        Pet pet2 = Pet.builder().id(id).build();
+        Pet savedPet = petServiceMap.save(pet2);
+
+        assertEquals(id, savedPet.getId());
+        assertEquals(1, petServiceMap.findAll().size());
+    }
+
+    @Test
+    void findByExistingId() {
         Pet pet = petServiceMap.findById(id);
 
         assertEquals(id, pet.getId());
+    }
+
+    @Test
+    void findByNotExistingId() {
+        Pet pet = petServiceMap.findById(2L);
+
+        assertNull(pet);
+    }
+
+    @Test
+    void findByIdIsNull() {
+        Pet pet = petServiceMap.findById(null);
+
+        assertNull(pet);
     }
 }
